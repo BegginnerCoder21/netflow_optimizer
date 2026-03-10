@@ -24,40 +24,43 @@ static void action_charger_fichier(void) {
     printf("\n  Fichiers disponibles :\n");
     printf("    data/reseau_test1.txt  (8 noeuds)\n");
     printf("    data/reseau_test2.txt  (12 noeuds)\n");
-    printf("    data/reseau_reel.txt   (si disponible)\n\n");
+    printf("    data/reseau_test_chemin.txt  (4 noeuds)\n");
+    printf("    data/reseau_cycle_negatif.txt  (4 noeuds)\n");
+    printf("    data/reseau_test_non_connexe.txt  (8 noeuds)\n");
+    // printf("    data/reseau_reel.txt   (si disponible)\n\n");
     saisir_chaine("Chemin du fichier", chemin, TAILLE_MAX_BUFFER);
     if (graphe_courant != NULL) detruire_graphe(graphe_courant);
     graphe_courant = charger_graphe_fichier(chemin);
 }
 
-static void action_creer_manuel(void) {
-    int n = saisir_entier("Nombre de noeuds", 2, TAILLE_MAX_NOEUDS);
-    int oriente = saisir_entier("Graphe oriente ? (1=oui, 0=non)", 0, 1);
-    if (graphe_courant != NULL) detruire_graphe(graphe_courant);
-    graphe_courant = creer_graphe(n, oriente);
-
-    afficher_info("Entrez le nom de chaque noeud :");
-    for (int i = 0; i < n; i++) {
-        char nom[TAILLE_MAX_NOM];
-        char msg[64];
-        snprintf(msg, 64, "Nom du noeud %d", i);
-        saisir_chaine(msg, nom, TAILLE_MAX_NOM);
-        ajouter_noeud(graphe_courant, i, nom);
-    }
-
-    int m = saisir_entier("Nombre d'aretes a ajouter", 0, n * n);
-    for (int i = 0; i < m; i++) {
-        printf("\n  Arete %d/%d :\n", i + 1, m);
-        int src  = saisir_entier("  Source", 0, n - 1);
-        int dest = saisir_entier("  Destination", 0, n - 1);
-        float lat  = saisir_flottant("  Latence (ms)", 0.1f, 10000.0f);
-        float bp   = saisir_flottant("  Bande passante (Mbps)", 0.1f, 100000.0f);
-        float cout = saisir_flottant("  Cout", 0.0f, 10000.0f);
-        int   sec  = saisir_entier("  Securite (0-10)", 0, 10);
-        ajouter_arete(graphe_courant, src, dest, lat, bp, cout, sec);
-    }
-    afficher_succes("Reseau cree avec succes.");
-}
+// static void action_creer_manuel(void) {
+//     int n = saisir_entier("Nombre de noeuds", 2, TAILLE_MAX_NOEUDS);
+//     int oriente = saisir_entier("Graphe oriente ? (1=oui, 0=non)", 0, 1);
+//     if (graphe_courant != NULL) detruire_graphe(graphe_courant);
+//     graphe_courant = creer_graphe(n, oriente);
+//
+//     afficher_info("Entrez le nom de chaque noeud :");
+//     for (int i = 0; i < n; i++) {
+//         char nom[TAILLE_MAX_NOM];
+//         char msg[64];
+//         snprintf(msg, 64, "Nom du noeud %d", i);
+//         saisir_chaine(msg, nom, TAILLE_MAX_NOM);
+//         ajouter_noeud(graphe_courant, i, nom);
+//     }
+//
+//     int m = saisir_entier("Nombre d'aretes a ajouter", 0, n * n);
+//     for (int i = 0; i < m; i++) {
+//         printf("\n  Arete %d/%d :\n", i + 1, m);
+//         int src  = saisir_entier("  Source", 0, n - 1);
+//         int dest = saisir_entier("  Destination", 0, n - 1);
+//         float lat  = saisir_flottant("  Latence (ms)", 0.1f, 10000.0f);
+//         float bp   = saisir_flottant("  Bande passante (Mbps)", 0.1f, 100000.0f);
+//         float cout = saisir_flottant("  Cout", 0.0f, 10000.0f);
+//         int   sec  = saisir_entier("  Securite (0-10)", 0, 10);
+//         ajouter_arete(graphe_courant, src, dest, lat, bp, cout, sec);
+//     }
+//     afficher_succes("Reseau cree avec succes.");
+// }
 
 static void action_reseau_aleatoire(void) {
     int n          = saisir_entier("Nombre de noeuds", 2, 500);
@@ -228,18 +231,18 @@ int main(void) {
                 return EXIT_SUCCESS;
 
             case 1:  action_charger_fichier(); break;
-            case 2:  action_creer_manuel(); break;
-            case 3:  action_reseau_aleatoire(); break;
+            // case 2:  action_creer_manuel(); break;
+            case 2:  action_reseau_aleatoire(); break;
 
-            case 4:
+            case 3:
                 verifier_graphe_charge();
                 if (graphe_courant) afficher_graphe(graphe_courant);
                 break;
-            case 5:
+            case 4:
                 verifier_graphe_charge();
                 if (graphe_courant) afficher_matrice(graphe_courant);
                 break;
-            case 6:
+            case 5:
                 verifier_graphe_charge();
                 if (graphe_courant) {
                     char chemin[TAILLE_MAX_BUFFER];
@@ -248,33 +251,33 @@ int main(void) {
                 }
                 break;
 
-            case 7:  action_dijkstra(); break;
-            case 8:  action_bellman_ford(); break;
-            case 9:
+            case 6:  action_dijkstra(); break;
+            case 7:  action_bellman_ford(); break;
+            case 8:
                 verifier_graphe_charge();
                 if (graphe_courant) {
                     int src = saisir_entier("Noeud source", 0, graphe_courant->nb_noeuds - 1);
                     comparer_dijkstra_bellman(graphe_courant, src);
                 }
                 break;
-            case 10: action_backtracking(); break;
-            case 11: action_k_chemins(); break;
+            case 9: action_backtracking(); break;
+            case 10: action_k_chemins(); break;
 
-            case 12:
+            case 11:
                 verifier_graphe_charge();
                 if (graphe_courant) {
                     int dep = saisir_entier("Noeud de depart", 0, graphe_courant->nb_noeuds - 1);
                     dfs_affichage(graphe_courant, dep);
                 }
                 break;
-            case 13:
+            case 12:
                 verifier_graphe_charge();
                 if (graphe_courant) {
                     int dep = saisir_entier("Noeud de depart", 0, graphe_courant->nb_noeuds - 1);
                     bfs_affichage(graphe_courant, dep);
                 }
                 break;
-            case 14:
+            case 13:
                 verifier_graphe_charge();
                 if (graphe_courant) {
                     afficher_titre_section("DETECTION DE CYCLES");
@@ -283,7 +286,7 @@ int main(void) {
                     else   afficher_succes("Aucun cycle detecte.");
                 }
                 break;
-            case 15: {
+            case 14: {
                 verifier_graphe_charge();
                 if (!graphe_courant) break;
                 afficher_titre_section("POINTS D'ARTICULATION");
@@ -299,7 +302,7 @@ int main(void) {
                 free(pa);
                 break;
             }
-            case 16: {
+            case 15: {
                 verifier_graphe_charge();
                 if (!graphe_courant) break;
                 afficher_titre_section("PONTS CRITIQUES");
@@ -319,7 +322,7 @@ int main(void) {
                 free(ps); free(pd);
                 break;
             }
-            case 17: {
+            case 16: {
                 verifier_graphe_charge();
                 if (!graphe_courant) break;
                 afficher_titre_section("COMPOSANTES FORTEMENT CONNEXES (Kosaraju)");
@@ -335,16 +338,16 @@ int main(void) {
                 free(comp);
                 break;
             }
-            case 18: action_securite_complete(); break;
-            case 19: action_simulation_flux(); break;
-            case 20: {
+            case 17: action_securite_complete(); break;
+            case 18: action_simulation_flux(); break;
+            case 19: {
                 verifier_graphe_charge();
                 if (!graphe_courant) break;
                 StatistiquesFlux stats = simuler_flux(500, 100, graphe_courant->nb_noeuds);
                 afficher_statistiques(&stats);
                 break;
             }
-            case 21: action_benchmarks(); break;
+            case 20: action_benchmarks(); break;
 
             default:
                 afficher_avertissement("Option invalide.");

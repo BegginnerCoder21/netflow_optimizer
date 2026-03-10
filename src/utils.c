@@ -167,34 +167,34 @@ void afficher_menu_principal(void) {
 
     printf(COULEUR_JAUNE "\n  === GESTION DU RESEAU ===\n" COULEUR_RESET);
     printf("   1. Charger un reseau depuis fichier\n");
-    printf("   2. Creer un reseau manuellement\n");
-    printf("   3. Generer un reseau aleatoire\n");
-    printf("   4. Afficher le reseau (liste d'adjacence)\n");
-    printf("   5. Afficher le reseau (matrice d'adjacence)\n");
-    printf("   6. Sauvegarder le reseau\n");
+    // printf("   2. Creer un reseau manuellement\n");
+    printf("   2. Generer un reseau aleatoire\n");
+    printf("   3. Afficher le reseau (liste d'adjacence)\n");
+    printf("   4. Afficher le reseau (matrice d'adjacence)\n");
+    printf("   5. Sauvegarder le reseau\n");
 
     printf(COULEUR_JAUNE "\n  === ROUTAGE OPTIMAL ===\n" COULEUR_RESET);
-    printf("   7. Dijkstra - Plus court chemin\n");
-    printf("   8. Bellman-Ford - Plus court chemin\n");
-    printf("   9. Comparer Dijkstra vs Bellman-Ford\n");
-    printf("  10. Chemin avec contraintes (backtracking)\n");
-    printf("  11. K plus courts chemins alternatifs\n");
+    printf("   6. Dijkstra - Plus court chemin\n");
+    printf("   7. Bellman-Ford - Plus court chemin\n");
+    printf("   8. Comparer Dijkstra vs Bellman-Ford\n");
+    printf("  9. Chemin avec contraintes (backtracking)\n");
+    printf("  10. K plus courts chemins alternatifs\n");
 
     printf(COULEUR_JAUNE "\n  === SECURITE & ANOMALIES ===\n" COULEUR_RESET);
-    printf("  12. Parcours DFS\n");
-    printf("  13. Parcours BFS\n");
-    printf("  14. Detecter les cycles (boucles de routage)\n");
-    printf("  15. Points d'articulation (noeuds critiques)\n");
-    printf("  16. Ponts critiques (aretes critiques)\n");
-    printf("  17. Composantes fortement connexes (Kosaraju)\n");
-    printf("  18. Rapport de securite complet\n");
+    printf("  11. Parcours DFS\n");
+    printf("  12. Parcours BFS\n");
+    printf("  13. Detecter les cycles (boucles de routage)\n");
+    printf("  14. Points d'articulation (noeuds critiques)\n");
+    printf("  15. Ponts critiques (aretes critiques)\n");
+    printf("  16. Composantes fortement connexes (Kosaraju)\n");
+    printf("  17. Rapport de securite complet\n");
 
     printf(COULEUR_JAUNE "\n  === SIMULATION DE FLUX ===\n" COULEUR_RESET);
-    printf("  19. Simuler file de paquets\n");
-    printf("  20. Afficher statistiques de flux\n");
+    printf("  18. Simuler file de paquets\n");
+    printf("  19. Afficher statistiques de flux\n");
 
     printf(COULEUR_JAUNE "\n  === BENCHMARKS ===\n" COULEUR_RESET);
-    printf("  21. Mesurer performances (tous algorithmes)\n");
+    printf("  20. Mesurer performances (tous algorithmes)\n");
 
     printf(COULEUR_ROUGE "\n   0. Quitter\n" COULEUR_RESET);
     afficher_separateur();
